@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧹 PC Cleaner Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: #0a0e17;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: #141b26;
+            border-radius: 32px;
+            padding: 40px 35px;
+            max-width: 780px;
+            width: 100%;
+            border: 1px solid #26303d;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.9);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            color: #00e6b0;
+            font-size: 30px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header .version {
+            background: #1e2a3a;
+            color: #6b8ba4;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .subtitle {
+            color: #8899b0;
+            font-size: 15px;
+            margin-bottom: 28px;
+            border-left: 4px solid #00e6b0;
+            padding-left: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: #0f1621;
+            border-radius: 18px;
+            padding: 18px 12px;
+            text-align: center;
+            border: 1px solid #1e2a3a;
+        }
+
+        .stat-card .num {
+            color: #fff;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .stat-card .label {
+            color: #6b8ba4;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .stat-card .num.green { color: #00e6b0; }
+        .stat-card .num.orange { color: #f0b34b; }
+        .stat-card .num.red { color: #e64a4a; }
+
+        .section-title {
+            color: #b3c9e0;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 22px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 20px;
+            background: #0f1621;
+            border-radius: 18px;
+            padding: 16px 22px;
+            border: 1px solid #1e2a3a;
+        }
+
+        .checkbox-grid label {
+            color: #c5d3e6;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 4px 0;
+        }
+
+        .checkbox-grid input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            accent-color: #00e6b0;
+            cursor: pointer;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 14px;
+            margin: 22px 0 18px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 16px 10px;
+            border: none;
+            border-radius: 60px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #1e2a3a;
+            color: #b3c9e0;
+            box-shadow: 0 4px 0 #0a0e17;
+        }
+
+        .btn-green {
+            background: #00e6b0;
+            color: #0a0e17;
+            box-shadow: 0 4px 0 #00997a;
+        }
+
+        .btn-green:hover {
+            background: #00d4a0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #00997a;
+        }
+
+        .btn-red {
+            background: #e64a4a;
+            color: white;
+            box-shadow: 0 4px 0 #992e2e;
+        }
+
+        .btn-red:hover {
+            background: #d43b3b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #992e2e;
+        }
+
+        .btn-blue {
+            background: #2a6b9e;
+            color: white;
+            box-shadow: 0 4px 0 #144066;
+        }
+
+        .btn-blue:hover {
+            background: #1f5a87;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #144066;
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #0a0e17;
+        }
+
+        .log-box {
+            background: #0a0e17;
+            border-radius: 18px;
+            padding: 18px 22px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #7b8da3;
+            border: 1px solid #1e2a3a;
+            margin-top: 8px;
+            white-space: pre-wrap;
+            line-height: 1.7;
+        }
+
+        .log-box .done { color: #00e6b0; }
+        .log-box .warn { color: #f0b34b; }
+        .log-box .err { color: #e64a4a; }
+        .log-box .info { color: #5b9bd5; }
+
+        .log-box::-webkit-scrollbar { width: 6px; }
+        .log-box::-webkit-scrollbar-track { background: #0a0e17; }
+        .log-box::-webkit-scrollbar-thumb { background: #1e2a3a; border-radius: 10px; }
+
+        .footer {
+            margin-top: 22px;
+            text-align: center;
+            color: #3a4a5e;
+            font-size: 13px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #0f1621;
+            border-radius: 10px;
+            margin: 14px 0 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar .fill {
+            height: 100%;
+            width: 0%;
+            background: #00e6b0;
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        @media (max-width: 550px) {
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .checkbox-grid { grid-template-columns: 1fr; }
+            .container { padding: 24px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>🧹 PC Cleaner</h1>
+        <span class="version">v3.0</span>
+    </div>
+    <div class="subtitle">مثل CCleaner • تنظيف شامل للملفات المؤقتة والذاكرة</div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="num green" id="sizeBefore">0.00</div>
+            <div class="label">📦 حجم الملفات (GB)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num orange" id="fileCount">0</div>
+            <div class="label">📄 عدد الملفات</div>
+        </div>
+        <div class="stat-card">
+            <div class="num red" id="cleanedCount">0</div>
+            <div class="label">🧹 تم مسحها</div>
+        </div>
+    </div>
+
+    <!-- Options -->
+    <div class="section-title">⚙️ خيارات التنظيف</div>
+    <div class="checkbox-grid" id="options">
+        <label><input type="checkbox" checked> Temp Files</label>
+        <label><input type="checkbox" checked> Prefetch</label>
+        <label><input type="checkbox" checked> Recycle Bin</label>
+        <label><input type="checkbox" checked> Browser Cache</label>
+        <label><input type="checkbox" checked> Windows Update</label>
+        <label><input type="checkbox" checked> Thumbnails</label>
+        <label><input type="checkbox" checked> Recent Documents</label>
+        <label><input type="checkbox" checked> Log Files</label>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-group">
+        <button class="btn btn-blue" onclick="analyze()">📊 تحليل</button>
+        <button class="btn btn-green" onclick="cleanNow()">🧹 تنظيف</button>
+        <button class="btn btn-red" onclick="clearLog()">🗑️ مسح السجل</button>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+
+    <!-- Log -->
+    <div class="log-box" id="log">
+        ⏳ مرحباً! اضغط "تحليل" لفحص النظام...
+    </div>
+
+    <div class="footer">
+        ⚡ يتطلب تشغيل كمسؤول • يحاكي أداء CCleaner
+    </div>
+
+</div>
+
+<script>
+    const log = document.getElementById('log');
+    const progressFill = document.getElementById('progressFill');
+
+    function appendLog(text, type = '') {
+        const line = document.createElement('div');
+        line.textContent = text;
+        if (type) line.className = type;
+        log.appendChild(line);
+        log.scrollTop = log.scrollHeight;
+    }
+
+    function clearLog() {
+        log.innerHTML = '';
+        appendLog('📋 السجل فارغ', 'info');
+        progressFill.style.width = '0%';
+    }
+
+    function updateStats(sizeGB, files, cleaned = 0) {
+        document.getElementById('sizeBefore').textContent = sizeGB.toFixed(2);
+        document.getElementById('fileCount').textContent = files;
+        document.getElementById('cleanedCount').textContent = cleaned;
+    }
+
+    // محاكاة تحليل النظام
+    function analyze() {
+        log.innerHTML = '';
+        appendLog('📊 بدء التحليل...', 'info');
+        progressFill.style.width = '10%';
+
+        const steps = [
+            'فحص Temp Files...',
+            'فحص Prefetch...',
+            'فحص Recycle Bin...',
+            'فحص Browser Cache...',
+            'فحص Windows Update...',
+            'فحص Thumbnails...',
+            'فحص Recent Documents...',
+            'فحص Log Files...'
+        ];
+
+        let i = 0;
+        const interval = setInterval(() => {
+            if (i >= steps.length) {
+                clearInterval(interval);
+                const size = Math.random() * 3.2 + 0.5;
+                const files = Math.floor(Math.random() * 4500 + 200);
+                updateStats(size, files, 0);
+                appendLog(`✅ التحليل اكتمل!`, 'done');
+                appendLog(`📦 ~${size.toFixed(2)} GB ملفات مؤقتة`, 'info');
+                appendLog(`📄 ${files} ملف يمكن مسحها`, 'info');
+                progressFill.style.width = '100%';
+                return;
+            }
+
+            appendLog(`🔍 ${steps[i]}`, 'info');
+            progressFill.style.width = `${(i + 1) * 12}%`;
+            i++;
+        }, 350);
+    }
+
+    // محاكاة التنظيف
+    function cleanNow() {
+        log.innerHTML = '';
+        appendLog('🧹 بدء عملية التنظيف...', 'info');
+        progressFill.style.width = '5%';
+
+        const items = [
+            { name: 'Temp Files', size: (Math.random() * 0.8 + 0.1) },
+            { name: 'Prefetch', size: (Math.random() * 0.3 + 0.05) },
+            { name: 'Recycle Bin', size: (Math.random() * 0.5 + 0.1) },
+            { name: 'Browser Cache', size: (Math.random() * 0.9 + 0.2) },
+            { name: 'Windows Update', size: (Math.random() * 0.4 + 0.1) },
+            { name: 'Thumbnails', size: (Math.random() * 0.2 + 0.05) },
+            { name: 'Recent Documents', size: (Math.random() * 0.1 + 0.02) },
+            { name: 'Log Files', size: (Math.random() * 0.3 + 0.05) }
+        ];
+
+        let totalCleaned = 0;
+        let totalFiles = 0;
+
+        let i = 0;
+        const interval = setInterval(() => {
+            if (i >= items.length) {
+                clearInterval(interval);
+                updateStats(0, 0, Math.round(totalFiles));
+                appendLog('', '');
+                appendLog('✅ اكتمل التنظيف بنجاح!', 'done');
+                appendLog(`🧹 تم مسح ${Math.round(totalFiles)} ملف`, 'done');
+                appendLog(`📦 تم توفير ${totalCleaned.toFixed(2)} GB`, 'done');
+                progressFill.style.width = '100%';
+                return;
+            }
+
+            const item = items[i];
+            const files = Math.floor(Math.random() * 300 + 20);
+            totalCleaned += item.size;
+            totalFiles += files;
+            appendLog(`✅ ${item.name}: ${files} ملف (${item.size.toFixed(2)} GB)`, 'done');
+            progressFill.style.width = `${(i + 1) * 12.5}%`;
+            i++;
+        }, 350);
+    }
+
+    // تشغيل تحليل تلقائي عند التحميل
+    window.onload = function() {
+        setTimeout(analyze, 500);
+    };
+</script>
+
+</body>
+</html>
