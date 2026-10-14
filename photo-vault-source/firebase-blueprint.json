@@ -1,0 +1,90 @@
+{
+  "entities": {
+    "Photo": {
+      "title": "Photo",
+      "description": "Private uploaded photo record with sequence counter",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner UID",
+          "maxLength": 128
+        },
+        "seq": {
+          "type": "number",
+          "description": "Sequence counter (عامود التسلسل)"
+        },
+        "title": {
+          "type": "string",
+          "description": "Photo filename or description",
+          "maxLength": 256
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Compressed image data URI or URL",
+          "maxLength": 950000
+        },
+        "fileSize": {
+          "type": "number",
+          "description": "File size in bytes"
+        },
+        "mimeType": {
+          "type": "string",
+          "description": "Image MIME type",
+          "maxLength": 64
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp or server time"
+        }
+      },
+      "required": ["userId", "seq", "title", "imageUrl"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Private user metadata and latest photo sequence counter",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address",
+          "maxLength": 256
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name",
+          "maxLength": 128
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "Profile picture URL",
+          "maxLength": 512
+        },
+        "lastSeq": {
+          "type": "number",
+          "description": "Current auto-increment sequence count"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/photos/{photoId}": {
+      "schema": "Photo",
+      "description": "User private photo documents containing sequence ID and photo data"
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile with sequence tracking"
+    }
+  }
+}

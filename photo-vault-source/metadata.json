@@ -1,0 +1,6 @@
+{
+  "name": "Private Photo Vault - سجل الصور السحابي",
+  "description": "برنامج وقاعدة بيانات خاصة متكاملة لحفظ وأرشفة الصور مع أرقام تسلسلية وخيارات التنزيل والرفع والحذف مع تسجيل الدخول بحساب جوجل.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

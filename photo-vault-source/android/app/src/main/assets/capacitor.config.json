@@ -1,0 +1,8 @@
+{
+	"appId": "com.photovault.app",
+	"appName": "سجل الصور الخاص",
+	"webDir": "dist",
+	"server": {
+		"androidScheme": "https"
+	}
+}
