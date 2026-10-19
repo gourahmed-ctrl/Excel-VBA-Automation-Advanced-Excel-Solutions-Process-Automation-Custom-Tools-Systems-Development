@@ -1,0 +1,1 @@
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$apps = @('GIMP.GIMP', 'Inkscape.Inkscape', 'BlenderFoundation.Blender', 'OBSProject.OBSStudio', 'BlackmagicDesign.DaVinciResolve'); Write-Host 'جاري تثبيت حزمة برامج الجرافيك والمونتاج...' -ForegroundColor Cyan; foreach ($app in $apps) { winget install -e --id $app --accept-package-agreements --accept-source-agreements }"
